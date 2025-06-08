@@ -215,10 +215,25 @@ document.addEventListener('DOMContentLoaded', function () {
     if (testimonialContainer) {
         let autoScrollAnimationFrame;
         let isUserInteracting = false;
-        let lastScrollTime = 0;
-        const scrollSpeed = 0.5; // pixels per millisecond
+        let scrollPosition = 0;
+        const scrollSpeed = 0.35; // Reduced from 0.5 to make it half as fast
 
-        // Smooth auto-scroll functionality using requestAnimationFrame
+        // Clone testimonials for seamless infinite scroll
+        function setupInfiniteScroll() {
+            const testimonialSlider = document.getElementById('testimonialSlider');
+            if (!testimonialSlider) return;
+
+            const testimonials = testimonialSlider.children;
+            const testimonialArray = Array.from(testimonials);
+
+            // Clone all testimonials and append them to the flex container for seamless loop
+            testimonialArray.forEach(testimonial => {
+                const clone = testimonial.cloneNode(true);
+                testimonialSlider.appendChild(clone);
+            });
+        }
+
+        // Smooth infinite auto-scroll functionality
         function startAutoScroll() {
             if (autoScrollAnimationFrame) {
                 cancelAnimationFrame(autoScrollAnimationFrame);
@@ -226,26 +241,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
             function smoothScroll(currentTime) {
                 if (!isUserInteracting) {
-                    if (lastScrollTime === 0) lastScrollTime = currentTime;
+                    scrollPosition += scrollSpeed;
 
-                    const deltaTime = currentTime - lastScrollTime;
-                    const scrollDistance = scrollSpeed * deltaTime;
+                    const maxScroll = testimonialContainer.scrollWidth / 2; // Half because we duplicated content
 
-                    const maxScroll = testimonialContainer.scrollWidth - testimonialContainer.clientWidth;
-
-                    if (testimonialContainer.scrollLeft >= maxScroll - 5) {
-                        // Reset to beginning smoothly
-                        testimonialContainer.scrollTo({
-                            left: 0,
-                            behavior: 'smooth'
-                        });
-                        lastScrollTime = currentTime + 1000; // Pause for 1 second after reset
-                    } else {
-                        // Smooth continuous scroll
-                        testimonialContainer.scrollLeft += scrollDistance;
+                    // Reset position when we've scrolled through original content
+                    if (scrollPosition >= maxScroll) {
+                        scrollPosition = 0;
                     }
 
-                    lastScrollTime = currentTime;
+                    testimonialContainer.scrollLeft = scrollPosition;
                 }
 
                 autoScrollAnimationFrame = requestAnimationFrame(smoothScroll);
@@ -259,7 +264,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 cancelAnimationFrame(autoScrollAnimationFrame);
                 autoScrollAnimationFrame = null;
             }
-            lastScrollTime = 0;
         }
 
         // Mouse interactions
@@ -277,6 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             startX = e.pageX - testimonialContainer.offsetLeft;
             scrollLeft = testimonialContainer.scrollLeft;
+            scrollPosition = scrollLeft; // Sync scroll position
             e.preventDefault();
         });
 
@@ -286,7 +291,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const x = e.pageX - testimonialContainer.offsetLeft;
             const walk = (x - startX) * 2;
-            testimonialContainer.scrollLeft = scrollLeft - walk;
+            const newScrollLeft = scrollLeft - walk;
+            testimonialContainer.scrollLeft = newScrollLeft;
+            scrollPosition = newScrollLeft; // Keep position in sync
         });
 
         document.addEventListener('mouseup', () => {
@@ -306,32 +313,22 @@ document.addEventListener('DOMContentLoaded', function () {
         testimonialContainer.addEventListener('touchstart', () => {
             isUserInteracting = true;
             stopAutoScroll();
+            scrollPosition = testimonialContainer.scrollLeft; // Sync position
         }, { passive: true });
 
         testimonialContainer.addEventListener('touchend', () => {
             setTimeout(() => {
                 isUserInteracting = false;
+                scrollPosition = testimonialContainer.scrollLeft; // Sync position
                 startAutoScroll();
             }, 3000);
         }, { passive: true });
 
-        // Hover interactions
-        testimonialContainer.addEventListener('mouseenter', () => {
-            isUserInteracting = true;
-            stopAutoScroll();
-        });
-
-        testimonialContainer.addEventListener('mouseleave', () => {
-            setTimeout(() => {
-                isUserInteracting = false;
-                startAutoScroll();
-            }, 1000);
-        });
-
         // Initialize
         testimonialContainer.style.cursor = 'grab';
 
-        // Start auto-scroll after a delay
+        // Setup infinite scroll and start after a delay
+        setupInfiniteScroll();
         setTimeout(() => {
             startAutoScroll();
         }, 2000);
