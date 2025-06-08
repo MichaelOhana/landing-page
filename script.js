@@ -121,9 +121,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 audioButton.style.transform = 'scale(1)';
             }, 150);
 
-            const text = 'Single-Family';
+            const text = 'Vivienda Unifamiliar';
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
+            utterance.lang = 'es-ES';
             utterance.rate = 0.8; // Slower for learning
             speechSynthesis.speak(utterance);
         });
@@ -187,15 +187,15 @@ document.addEventListener('DOMContentLoaded', function () {
     if (practiceInput && checkButton) {
         checkButton.addEventListener('click', () => {
             const answer = practiceInput.value.toLowerCase().trim();
-            if (answer === 'single-family' || answer === 'single family') {
+            if (answer === 'single-family' || answer === 'single family' || answer === 'vivienda unifamiliar') {
                 practiceInput.style.borderColor = '#10B981';
                 practiceInput.style.backgroundColor = '#D1FAE5';
-                checkButton.textContent = 'Correct! ✅';
+                checkButton.textContent = '¡Correcto! ✅';
                 checkButton.style.background = 'linear-gradient(to right, #10B981, #059669)';
             } else {
                 practiceInput.style.borderColor = '#EF4444';
                 practiceInput.style.backgroundColor = '#FEE2E2';
-                checkButton.textContent = 'Try Again 🔄';
+                checkButton.textContent = 'Inténtalo de nuevo 🔄';
                 checkButton.style.background = 'linear-gradient(to right, #EF4444, #DC2626)';
             }
         });
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Reset styles on new input
             practiceInput.style.borderColor = '#60A5FA';
             practiceInput.style.backgroundColor = '#FFFFFF';
-            checkButton.textContent = 'Check Answer ✓';
+            checkButton.textContent = 'Comprobar respuesta ✓';
             checkButton.style.background = 'linear-gradient(to right, #10B981, #3B82F6)';
         });
     }
