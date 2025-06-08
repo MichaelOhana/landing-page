@@ -5,453 +5,472 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dominio del Inglés Inmobiliario | Transforma Tu Carrera en 30 Días</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'inter': ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.6s ease-in forwards',
-                        'slide-up': 'slideUp 0.6s ease-out forwards',
-                        'bounce-gentle': 'bounceGentle 2s infinite',
-                        'float': 'float 3s ease-in-out infinite',
-                    }
-                }
-            }
-        }
-    </script>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+    </noscript>
+
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+    <!-- Critical CSS inlined -->
     <style>
+        /* Critical above-the-fold styles */
         body {
             font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+            color: #1f2937;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounceGentle {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        .faq-answer {
-            max-height: 0;
+        .hero-section {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #1e40af 100%);
+            position: relative;
             overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+            padding-top: 0;
+            padding-bottom: 6rem;
         }
 
-        .faq-item.active .faq-answer {
-            padding-bottom: 1.5rem;
+        @media (min-width: 768px) {
+            .hero-section {
+                padding-bottom: 8rem;
+            }
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.25rem 1.5rem 6rem;
+            position: relative;
+            z-index: 20;
         }
 
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
 
-        /* Hide scrollbar for testimonials */
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 4.5rem;
+            }
         }
 
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
         }
 
-        /* Smooth scrolling for testimonials */
-        #testimonialSlider {
-            scroll-behavior: smooth;
+        @media (min-width: 768px) {
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1f2937;
+            font-weight: 700;
+            padding: 1.5rem 3rem;
+            border-radius: 9999px;
+            font-size: 1.25rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Loading state to prevent FOUC */
+        .loading {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .loaded {
+            opacity: 1;
         }
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-inter">
-
+<body class="loading">
     <main>
-        <!-- Hero Section with Stunning Design -->
-        <section id="hero"
-            class="bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 pt-0 pb-24 md:pb-32 relative overflow-hidden">
-            <!-- Navigation integrated into hero -->
-            <nav class="container mx-auto px-6 pt-1 pb-24 flex justify-between items-center relative z-20">
-                <div class="text-2xl font-bold text-white">
+        <!-- Hero Section with Critical Content -->
+        <section id="hero" class="hero-section">
+            <!-- Navigation -->
+            <nav class="hero-nav">
+                <div style="font-size: 1.5rem; font-weight: 700; color: white;">
                     🏠 Inglés Inmobiliario
                 </div>
-                <ul class="hidden md:flex items-center space-x-8">
+                <ul style="display: none; align-items: center; gap: 2rem;" class="nav-desktop">
                     <li><a href="#hero"
-                            class="text-white/90 hover:text-white transition-colors duration-300 font-medium">Inicio</a>
+                            style="color: rgba(255, 255, 255, 0.9); text-decoration: none; font-weight: 500;">Inicio</a>
                     </li>
                     <li><a href="#social-proof"
-                            class="text-white/90 hover:text-white transition-colors duration-300 font-medium">Casos de
+                            style="color: rgba(255, 255, 255, 0.9); text-decoration: none; font-weight: 500;">Casos de
                             Éxito</a></li>
                     <li><a href="#faq"
-                            class="text-white/90 hover:text-white transition-colors duration-300 font-medium">Preguntas
-                            Frecuentes</a>
-                    </li>
+                            style="color: rgba(255, 255, 255, 0.9); text-decoration: none; font-weight: 500;">Preguntas
+                            Frecuentes</a></li>
                 </ul>
-                <a href="#pricing"
-                    class="hidden md:inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold py-3 px-8 rounded-full hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                <a href="#pricing" class="cta-button" style="display: none; padding: 0.75rem 2rem; font-size: 1rem;"
+                    id="nav-cta">
                     Comenzar
                 </a>
             </nav>
 
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
-            <div class="container mx-auto px-6 text-center relative z-10">
-                <div class="animate-fade-in">
-                    <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight mb-6 animate-slide-up">
+            <div
+                style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(124, 58, 237, 0.2));">
+            </div>
+            <div class="container text-center" style="position: relative; z-index: 10;">
+                <div>
+                    <h1 class="hero-title">
                         Domina el Inglés Inmobiliario en
                         <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 animate-bounce-gentle">30
+                            style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">30
                             Días</span>
                     </h1>
-                    <p class="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto animate-slide-up"
-                        style="animation-delay: 0.2s;">
+                    <p class="hero-subtitle">
                         Aprende las 100 palabras clave que impulsan acuerdos, préstamos y contratos, sin clases
                         aburridas
                     </p>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-8 mb-16 animate-slide-up" style="animation-delay: 0.4s;">
-                    <div class="glass-effect p-6 rounded-2xl backdrop-blur-lg">
-                        <div class="text-4xl mb-3">🎬</div>
-                        <div class="text-white font-semibold">10,000+ Clips para ver los términos usados en la vida real
-                        </div>
+                <!-- Key Benefits Grid -->
+                <div style="display: grid; gap: 2rem; margin-bottom: 4rem; grid-template-columns: 1fr;"
+                    class="benefits-grid">
+                    <div
+                        style="background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(20px); padding: 1.5rem; border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.18);">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🎬</div>
+                        <div style="color: white; font-weight: 600;">10,000+ Clips para ver los términos usados en la
+                            vida real</div>
                     </div>
-                    <div class="glass-effect p-6 rounded-2xl backdrop-blur-lg">
-                        <div class="text-4xl mb-3">🎯</div>
-                        <div class="text-white font-semibold">30 Sesiones de Práctica Interactivas</div>
+                    <div
+                        style="background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(20px); padding: 1.5rem; border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.18);">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🎯</div>
+                        <div style="color: white; font-weight: 600;">30 Sesiones de Práctica Interactivas</div>
                     </div>
-                    <div class="glass-effect p-6 rounded-2xl backdrop-blur-lg">
-                        <div class="text-4xl mb-3">♾️</div>
-                        <div class="text-white font-semibold">Acceso de por Vida</div>
+                    <div
+                        style="background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(20px); padding: 1.5rem; border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.18);">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">♾️</div>
+                        <div style="color: white; font-weight: 600;">Acceso de por Vida</div>
                     </div>
                 </div>
 
-                <a href="#pricing"
-                    class="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-bold py-6 px-12 rounded-full text-xl hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-2xl animate-bounce-gentle">
+                <a href="#pricing" class="cta-button">
                     🚀 Empieza a Aprender Hoy
                 </a>
             </div>
         </section>
 
-        <!-- Problem → Solution Section -->
-        <section id="problem-solution" class="py-24 bg-white relative">
-            <div class="container mx-auto px-6">
-                <!-- Section Header -->
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-4">
-                        Deja de Perder Tratos por
-                        <span class="gradient-text">Barreras Lingüísticas</span>
-                    </h2>
-                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Transforma los desafíos de comunicación en ventajas competitivas
-                    </p>
-                </div>
-
-                <div class="max-w-6xl mx-auto space-y-16">
-                    <!-- Problems Section -->
-                    <div class="space-y-8">
-                        <div class="text-center mb-12">
-                            <h3 class="text-3xl font-bold text-gray-900 mb-4">Desafíos Comunes</h3>
-                            <p class="text-xl text-gray-600">Problemas que te cuestan tratos y credibilidad</p>
-                        </div>
-
-                        <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
-                            <div
-                                class="group bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-2xl border border-red-100 hover:shadow-lg transition-all duration-300">
-                                <div class="text-center">
-                                    <div
-                                        class="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                                        ✗
-                                    </div>
-                                    <div class="font-bold text-gray-900 text-xl mb-3">Métricas Financieras Confusas
-                                    </div>
-                                    <div class="text-gray-700">Dificultad para explicar tasas de capitalización,
-                                        cálculos de ROI y retornos de inversión a clientes internacionales</div>
-                                </div>
-                            </div>
-
-                            <div
-                                class="group bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-2xl border border-red-100 hover:shadow-lg transition-all duration-300">
-                                <div class="text-center">
-                                    <div
-                                        class="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                                        ✗
-                                    </div>
-                                    <div class="font-bold text-gray-900 text-xl mb-3">Confusión en Contratos</div>
-                                    <div class="text-gray-700">Incapacidad para revisar documentos legales o explicar
-                                        términos de contrato durante negociaciones críticas</div>
-                                </div>
-                            </div>
-
-                            <div
-                                class="group bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-2xl border border-red-100 hover:shadow-lg transition-all duration-300">
-                                <div class="text-center">
-                                    <div
-                                        class="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                                        ✗
-                                    </div>
-                                    <div class="font-bold text-gray-900 text-xl mb-3">Oportunidades Perdidas</div>
-                                    <div class="text-gray-700">Los clientes se van con competidores que se comunican con
-                                        más confianza en inglés</div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Rest of content will be loaded after critical section -->
+        <div id="non-critical-content" style="display: none;">
+            <!-- Problem → Solution Section -->
+            <section id="problem-solution" class="py-24 bg-white relative">
+                <div class="container mx-auto px-6">
+                    <!-- Section Header -->
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                            Deja de Perder Tratos por
+                            <span class="gradient-text">Barreras Lingüísticas</span>
+                        </h2>
+                        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                            Transforma los desafíos de comunicación en ventajas competitivas
+                        </p>
                     </div>
 
-                    <!-- Arrow Divider -->
-                    <div class="flex justify-center">
-                        <div
-                            class="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-2xl animate-bounce-gentle">
-                            ↓
-                        </div>
-                    </div>
-
-                    <!-- Solution Section -->
-                    <div class="max-w-4xl mx-auto">
-                        <div
-                            class="bg-gradient-to-br from-green-50 to-blue-50 p-12 rounded-3xl shadow-xl border-2 border-green-200 relative overflow-hidden">
-                            <!-- Decorative Elements -->
-                            <div
-                                class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-green-400 to-blue-500 rounded-full opacity-10">
-                            </div>
-                            <div
-                                class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full opacity-10">
+                    <div class="max-w-6xl mx-auto space-y-16">
+                        <!-- Problems Section -->
+                        <div class="space-y-8">
+                            <div class="text-center mb-12">
+                                <h3 class="text-3xl font-bold text-gray-900 mb-4">Desafíos Comunes</h3>
+                                <p class="text-xl text-gray-600">Problemas que te cuestan tratos y credibilidad</p>
                             </div>
 
-                            <div class="relative z-10">
-                                <div class="text-center mb-12">
-                                    <div
-                                        class="w-24 h-24 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-white text-4xl mx-auto mb-6 shadow-lg">
-                                        ✓
-                                    </div>
-                                    <h3 class="text-4xl font-bold text-gray-900 mb-4">Nuestra Solución</h3>
-                                    <p class="text-xl text-gray-600">Curso de Dominio de Inglés Inmobiliario</p>
-                                </div>
-
-                                <div class="grid md:grid-cols-3 gap-6 mb-12">
-                                    <div class="text-center p-6 bg-white/70 rounded-2xl backdrop-blur-sm">
+                            <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div
+                                    class="group bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-2xl border border-red-100 hover:shadow-lg transition-all duration-300">
+                                    <div class="text-center">
                                         <div
-                                            class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                                            class="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                                            ✗
+                                        </div>
+                                        <div class="font-bold text-gray-900 text-xl mb-3">Métricas Financieras Confusas
+                                        </div>
+                                        <div class="text-gray-700">Dificultad para explicar tasas de capitalización,
+                                            cálculos de ROI y retornos de inversión a clientes internacionales</div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="group bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-2xl border border-red-100 hover:shadow-lg transition-all duration-300">
+                                    <div class="text-center">
+                                        <div
+                                            class="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                                            ✗
+                                        </div>
+                                        <div class="font-bold text-gray-900 text-xl mb-3">Confusión en Contratos</div>
+                                        <div class="text-gray-700">Incapacidad para revisar documentos legales o
+                                            explicar
+                                            términos de contrato durante negociaciones críticas</div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="group bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-2xl border border-red-100 hover:shadow-lg transition-all duration-300">
+                                    <div class="text-center">
+                                        <div
+                                            class="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                                            ✗
+                                        </div>
+                                        <div class="font-bold text-gray-900 text-xl mb-3">Oportunidades Perdidas</div>
+                                        <div class="text-gray-700">Los clientes se van con competidores que se comunican
+                                            con
+                                            más confianza en inglés</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Arrow Divider -->
+                        <div class="flex justify-center">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-2xl animate-bounce-gentle">
+                                ↓
+                            </div>
+                        </div>
+
+                        <!-- Solution Section -->
+                        <div class="max-w-4xl mx-auto">
+                            <div
+                                class="bg-gradient-to-br from-green-50 to-blue-50 p-12 rounded-3xl shadow-xl border-2 border-green-200 relative overflow-hidden">
+                                <!-- Decorative Elements -->
+                                <div
+                                    class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-green-400 to-blue-500 rounded-full opacity-10">
+                                </div>
+                                <div
+                                    class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full opacity-10">
+                                </div>
+
+                                <div class="relative z-10">
+                                    <div class="text-center mb-12">
+                                        <div
+                                            class="w-24 h-24 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center text-white text-4xl mx-auto mb-6 shadow-lg">
                                             ✓
                                         </div>
-                                        <div class="font-bold text-gray-900 text-lg mb-2">Vocabulario Específico del
-                                            Sector
-                                        </div>
-                                        <div class="text-gray-700">Sin inglés genérico, solo los términos inmobiliarios
-                                            que importan para tus tratos</div>
+                                        <h3 class="text-4xl font-bold text-gray-900 mb-4">Nuestra Solución</h3>
+                                        <p class="text-xl text-gray-600">Curso de Dominio de Inglés Inmobiliario</p>
                                     </div>
 
-                                    <div class="text-center p-6 bg-white/70 rounded-2xl backdrop-blur-sm">
-                                        <div
-                                            class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
-                                            ✓
+                                    <div class="grid md:grid-cols-3 gap-6 mb-12">
+                                        <div class="text-center p-6 bg-white/70 rounded-2xl backdrop-blur-sm">
+                                            <div
+                                                class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                                                ✓
+                                            </div>
+                                            <div class="font-bold text-gray-900 text-lg mb-2">Vocabulario Específico del
+                                                Sector
+                                            </div>
+                                            <div class="text-gray-700">Sin inglés genérico, solo los términos
+                                                inmobiliarios
+                                                que importan para tus tratos</div>
                                         </div>
-                                        <div class="font-bold text-gray-900 text-lg mb-2">Ejemplos en Video de la Vida
-                                            Real</div>
-                                        <div class="text-gray-700">Clips de video reales que muestran los términos en
-                                            contexto, no frases de libro de texto</div>
+
+                                        <div class="text-center p-6 bg-white/70 rounded-2xl backdrop-blur-sm">
+                                            <div
+                                                class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                                                ✓
+                                            </div>
+                                            <div class="font-bold text-gray-900 text-lg mb-2">Ejemplos en Video de la
+                                                Vida
+                                                Real</div>
+                                            <div class="text-gray-700">Clips de video reales que muestran los términos
+                                                en
+                                                contexto, no frases de libro de texto</div>
+                                        </div>
+
+                                        <div class="text-center p-6 bg-white/70 rounded-2xl backdrop-blur-sm">
+                                            <div
+                                                class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                                                ✓
+                                            </div>
+                                            <div class="font-bold text-gray-900 text-lg mb-2">Aprende Donde y Cuando
+                                                Quieras
+                                            </div>
+                                            <div class="text-gray-700">Plataforma optimizada para móviles diseñada para
+                                                profesionales ocupados</div>
+                                        </div>
                                     </div>
 
-                                    <div class="text-center p-6 bg-white/70 rounded-2xl backdrop-blur-sm">
-                                        <div
-                                            class="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
-                                            ✓
-                                        </div>
-                                        <div class="font-bold text-gray-900 text-lg mb-2">Aprende Donde y Cuando Quieras
-                                        </div>
-                                        <div class="text-gray-700">Plataforma optimizada para móviles diseñada para
-                                            profesionales ocupados</div>
+                                    <div class="text-center">
+                                        <a href="#pricing"
+                                            class="inline-flex items-center space-x-3 bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold py-6 px-12 rounded-full hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg text-xl">
+                                            <span>Empieza a Aprender Hoy</span>
+                                            <span class="text-2xl">→</span>
+                                        </a>
                                     </div>
-                                </div>
-
-                                <div class="text-center">
-                                    <a href="#pricing"
-                                        class="inline-flex items-center space-x-3 bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold py-6 px-12 rounded-full hover:from-green-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg text-xl">
-                                        <span>Empieza a Aprender Hoy</span>
-                                        <span class="text-2xl">→</span>
-                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- How It Works Section -->
-        <section id="how-it-works" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Cómo Funciona</h2>
-                <p class="text-xl text-gray-600 mb-16">Transforma tu carrera inmobiliaria en 3 simples pasos</p>
+            <!-- How It Works Section -->
+            <section id="how-it-works" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Cómo Funciona</h2>
+                    <p class="text-xl text-gray-600 mb-16">Transforma tu carrera inmobiliaria en 3 simples pasos</p>
 
-                <div class="grid md:grid-cols-3 gap-12">
-                    <div class="relative group">
-                        <div
-                            class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2">
+                    <div class="grid md:grid-cols-3 gap-12">
+                        <div class="relative group">
                             <div
-                                class="w-20 h-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 animate-float">
-                                1
+                                class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2">
+                                <div
+                                    class="w-20 h-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 animate-float">
+                                    1
+                                </div>
+                                <h3 class="text-2xl font-bold mb-4">Compra y Accede</h3>
+                                <p class="text-gray-600 text-lg">Acceso instantáneo entregado en tu bandeja de entrada.
+                                    Comienza a aprender a los pocos minutos de la compra.</p>
                             </div>
-                            <h3 class="text-2xl font-bold mb-4">Compra y Accede</h3>
-                            <p class="text-gray-600 text-lg">Acceso instantáneo entregado en tu bandeja de entrada.
-                                Comienza a aprender a los pocos minutos de la compra.</p>
+                        </div>
+
+                        <div class="relative group">
+                            <div
+                                class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2">
+                                <div class="w-20 h-20 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 animate-float"
+                                    style="animation-delay: 0.5s;">
+                                    2
+                                </div>
+                                <h3 class="text-2xl font-bold mb-4">Aprende Diariamente</h3>
+                                <p class="text-gray-600 text-lg">Domina 10 palabras nuevas al día con videos
+                                    interactivos y
+                                    ejercicios probados.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative group">
+                            <div
+                                class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2">
+                                <div class="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 animate-float"
+                                    style="animation-delay: 1s;">
+                                    3
+                                </div>
+                                <h3 class="text-2xl font-bold mb-4">Aplica y Ten Éxito</h3>
+                                <p class="text-gray-600 text-lg">Cierra tratos internacionales con confianza y expande
+                                    tu
+                                    alcance en el mercado.</p>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <div class="relative group">
+            <!-- What's Inside Section -->
+            <section id="whats-inside" class="py-24 bg-white">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Módulos del Curso</h2>
+                    <p class="text-xl text-gray-600 mb-16">10 módulos completos que cubren cada aspecto del inglés
+                        inmobiliario</p>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-6">
                         <div
-                            class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2">
-                            <div class="w-20 h-20 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 animate-float"
-                                style="animation-delay: 0.5s;">
-                                2
-                            </div>
-                            <h3 class="text-2xl font-bold mb-4">Aprende Diariamente</h3>
-                            <p class="text-gray-600 text-lg">Domina 10 palabras nuevas al día con videos interactivos y
-                                ejercicios probados.</p>
+                            class="bg-gradient-to-br from-purple-100 to-blue-100 p-6 rounded-xl border border-purple-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="text-3xl mb-3">🏠</div>
+                            <div class="font-semibold text-gray-800">Tipos de Propiedad</div>
                         </div>
-                    </div>
-
-                    <div class="relative group">
                         <div
-                            class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2">
-                            <div class="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6 animate-float"
-                                style="animation-delay: 1s;">
-                                3
-                            </div>
-                            <h3 class="text-2xl font-bold mb-4">Aplica y Ten Éxito</h3>
-                            <p class="text-gray-600 text-lg">Cierra tratos internacionales con confianza y expande tu
-                                alcance en el mercado.</p>
+                            class="bg-gradient-to-br from-green-100 to-teal-100 p-6 rounded-xl border border-green-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="text-3xl mb-3">👥</div>
+                            <div class="font-semibold text-gray-800">Personas y Roles</div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-br from-yellow-100 to-orange-100 p-6 rounded-xl border border-yellow-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="text-3xl mb-3">💰</div>
+                            <div class="font-semibold text-gray-800">Financiamiento y Préstamos</div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-br from-red-100 to-pink-100 p-6 rounded-xl border border-red-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="text-3xl mb-3">📊</div>
+                            <div class="font-semibold text-gray-800">Métricas de Inversión</div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-br from-indigo-100 to-purple-100 p-6 rounded-xl border border-indigo-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="text-3xl mb-3">🔄</div>
+                            <div class="font-semibold text-gray-800">Proceso de Transacción</div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-br from-gray-100 to-blue-100 p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="text-3xl mb-3">📋</div>
+                            <div class="font-semibold text-gray-800">Legal y Documentos</div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-br from-teal-100 to-green-100 p-6 rounded-xl border border-teal-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="text-3xl mb-3">🏢</div>
+                            <div class="font-semibold text-gray-800">Administración de Propiedades</div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-br from-pink-100 to-red-100 p-6 rounded-xl border border-pink-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="text-3xl mb-3">📈</div>
+                            <div class="font-semibold text-gray-800">Análisis de Mercado</div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-br from-orange-100 to-yellow-100 p-6 rounded-xl border border-orange-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="text-3xl mb-3">🏛️</div>
+                            <div class="font-semibold text-gray-800">Estructuras de Propiedad</div>
+                        </div>
+                        <div
+                            class="bg-gradient-to-br from-blue-100 to-indigo-100 p-6 rounded-xl border border-blue-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="text-3xl mb-3">🎯</div>
+                            <div class="font-semibold text-gray-800">Estrategias y Tratos</div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- What's Inside Section -->
-        <section id="whats-inside" class="py-24 bg-white">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Módulos del Curso</h2>
-                <p class="text-xl text-gray-600 mb-16">10 módulos completos que cubren cada aspecto del inglés
-                    inmobiliario</p>
-
-                <div class="grid grid-cols-2 lg:grid-cols-5 gap-6">
                     <div
-                        class="bg-gradient-to-br from-purple-100 to-blue-100 p-6 rounded-xl border border-purple-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-3xl mb-3">🏠</div>
-                        <div class="font-semibold text-gray-800">Tipos de Propiedad</div>
-                    </div>
-                    <div
-                        class="bg-gradient-to-br from-green-100 to-teal-100 p-6 rounded-xl border border-green-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-3xl mb-3">👥</div>
-                        <div class="font-semibold text-gray-800">Personas y Roles</div>
-                    </div>
-                    <div
-                        class="bg-gradient-to-br from-yellow-100 to-orange-100 p-6 rounded-xl border border-yellow-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-3xl mb-3">💰</div>
-                        <div class="font-semibold text-gray-800">Financiamiento y Préstamos</div>
-                    </div>
-                    <div
-                        class="bg-gradient-to-br from-red-100 to-pink-100 p-6 rounded-xl border border-red-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-3xl mb-3">📊</div>
-                        <div class="font-semibold text-gray-800">Métricas de Inversión</div>
-                    </div>
-                    <div
-                        class="bg-gradient-to-br from-indigo-100 to-purple-100 p-6 rounded-xl border border-indigo-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-3xl mb-3">🔄</div>
-                        <div class="font-semibold text-gray-800">Proceso de Transacción</div>
-                    </div>
-                    <div
-                        class="bg-gradient-to-br from-gray-100 to-blue-100 p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-3xl mb-3">📋</div>
-                        <div class="font-semibold text-gray-800">Legal y Documentos</div>
-                    </div>
-                    <div
-                        class="bg-gradient-to-br from-teal-100 to-green-100 p-6 rounded-xl border border-teal-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-3xl mb-3">🏢</div>
-                        <div class="font-semibold text-gray-800">Administración de Propiedades</div>
-                    </div>
-                    <div
-                        class="bg-gradient-to-br from-pink-100 to-red-100 p-6 rounded-xl border border-pink-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-3xl mb-3">📈</div>
-                        <div class="font-semibold text-gray-800">Análisis de Mercado</div>
-                    </div>
-                    <div
-                        class="bg-gradient-to-br from-orange-100 to-yellow-100 p-6 rounded-xl border border-orange-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-3xl mb-3">🏛️</div>
-                        <div class="font-semibold text-gray-800">Estructuras de Propiedad</div>
-                    </div>
-                    <div
-                        class="bg-gradient-to-br from-blue-100 to-indigo-100 p-6 rounded-xl border border-blue-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                        <div class="text-3xl mb-3">🎯</div>
-                        <div class="font-semibold text-gray-800">Estrategias y Tratos</div>
+                        class="mt-12 bg-gradient-to-r from-purple-50 to-blue-50 p-8 rounded-2xl border border-purple-100">
+                        <p class="text-lg text-gray-700 font-semibold mb-4">Cada módulo contiene:</p>
+                        <ul class="text-lg text-gray-700 list-disc list-inside space-y-2">
+                            <li>10 palabras esenciales</li>
+                            <li>3 sesiones de práctica</li>
+                            <li>Clips de la vida real usando cada palabra</li>
+                        </ul>
                     </div>
                 </div>
+            </section>
 
-                <div class="mt-12 bg-gradient-to-r from-purple-50 to-blue-50 p-8 rounded-2xl border border-purple-100">
-                    <p class="text-lg text-gray-700 font-semibold mb-4">Cada módulo contiene:</p>
-                    <ul class="text-lg text-gray-700 list-disc list-inside space-y-2">
-                        <li>10 palabras esenciales</li>
-                        <li>3 sesiones de práctica</li>
-                        <li>Clips de la vida real usando cada palabra</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Interactive Preview Section
+            <!-- Interactive Preview Section
         <section id="interactive-preview" class="py-24 bg-gradient-to-br from-gray-50 to-purple-50">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-4xl font-bold text-gray-900 mb-4">Vista Previa Interactiva</h2>
@@ -1039,8 +1058,148 @@
             </div>
         </div>
     </footer>
+    </div> <!-- End non-critical-content -->
 
-    <script src="script.js"></script>
+    <!-- Performance Optimization Scripts -->
+    <script>
+        // Load critical resources after initial paint
+        (function () {
+            // Show critical content immediately
+            document.body.classList.add('loaded');
+
+            // Set up responsive behavior for hero section
+            function setupResponsiveDesign() {
+                const benefitsGrid = document.querySelector('.benefits-grid');
+                const navDesktop = document.querySelector('.nav-desktop');
+                const navCta = document.getElementById('nav-cta');
+
+                function handleResize() {
+                    if (window.innerWidth >= 768) {
+                        if (benefitsGrid) {
+                            benefitsGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+                        }
+                        if (navDesktop) {
+                            navDesktop.style.display = 'flex';
+                        }
+                        if (navCta) {
+                            navCta.style.display = 'inline-block';
+                        }
+                    } else {
+                        if (benefitsGrid) {
+                            benefitsGrid.style.gridTemplateColumns = '1fr';
+                        }
+                        if (navDesktop) {
+                            navDesktop.style.display = 'none';
+                        }
+                        if (navCta) {
+                            navCta.style.display = 'none';
+                        }
+                    }
+                }
+
+                handleResize();
+                window.addEventListener('resize', handleResize);
+            }
+
+            setupResponsiveDesign();
+
+            // Load non-critical resources after a short delay
+            setTimeout(function () {
+                // Load TailwindCSS
+                const tailwindScript = document.createElement('script');
+                tailwindScript.src = 'https://cdn.tailwindcss.com';
+                tailwindScript.async = true;
+                tailwindScript.onload = function () {
+                    // Configure Tailwind after it loads
+                    if (typeof tailwind !== 'undefined') {
+                        tailwind.config = {
+                            theme: {
+                                extend: {
+                                    fontFamily: {
+                                        'inter': ['Inter', 'sans-serif'],
+                                    },
+                                    animation: {
+                                        'fade-in': 'fadeIn 0.6s ease-in forwards',
+                                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                                        'bounce-gentle': 'bounceGentle 2s infinite',
+                                        'float': 'float 3s ease-in-out infinite',
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Show non-critical content with Tailwind classes
+                    const nonCriticalContent = document.getElementById('non-critical-content');
+                    if (nonCriticalContent) {
+                        nonCriticalContent.style.display = 'block';
+                    }
+                };
+                document.head.appendChild(tailwindScript);
+
+                // Load additional CSS for non-critical elements
+                const additionalCSS = document.createElement('style');
+                additionalCSS.textContent = `
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(20px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                    @keyframes slideUp {
+                        from { opacity: 0; transform: translateY(40px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                    @keyframes bounceGentle {
+                        0%, 100% { transform: translateY(0); }
+                        50% { transform: translateY(-10px); }
+                    }
+                    @keyframes float {
+                        0%, 100% { transform: translateY(0px); }
+                        50% { transform: translateY(-20px); }
+                    }
+                    .faq-answer {
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+                    }
+                    .faq-item.active .faq-answer {
+                        padding-bottom: 1.5rem;
+                    }
+                    .gradient-text {
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        background-clip: text;
+                    }
+                    .glass-effect {
+                        background: rgba(255, 255, 255, 0.25);
+                        backdrop-filter: blur(20px);
+                        border: 1px solid rgba(255, 255, 255, 0.18);
+                    }
+                    .scrollbar-hide {
+                        -ms-overflow-style: none;
+                        scrollbar-width: none;
+                    }
+                    .scrollbar-hide::-webkit-scrollbar {
+                        display: none;
+                    }
+                    #testimonialSlider {
+                        scroll-behavior: smooth;
+                    }
+                `;
+                document.head.appendChild(additionalCSS);
+
+            }, 100);
+
+            // Load main JavaScript functionality after content is visible
+            setTimeout(function () {
+                const mainScript = document.createElement('script');
+                mainScript.src = 'script.js';
+                mainScript.async = true;
+                document.head.appendChild(mainScript);
+            }, 200);
+
+        })();
+    </script>
 </body>
 
 </html>

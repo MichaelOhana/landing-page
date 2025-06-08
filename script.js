@@ -1,255 +1,410 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Enhanced FAQ Accordion with improved animations
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        question.addEventListener('click', () => {
-            const answer = item.querySelector('.faq-answer');
-            const arrow = item.querySelector('.arrow-down');
-            const isActive = item.classList.contains('active');
+// Performance-optimized script with lazy loading and reduced main thread blocking
+(function () {
+    'use strict';
 
-            // Close all other items with smooth animation
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                    otherItem.querySelector('.faq-answer').style.maxHeight = null;
-                    otherItem.querySelector('.arrow-down').style.transform = 'rotate(0deg)';
-                }
-            });
-
-            // Toggle active class on the clicked item
-            item.classList.toggle('active');
-
-            if (item.classList.contains('active')) {
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-                arrow.style.transform = 'rotate(180deg)';
-            } else {
-                answer.style.maxHeight = null;
-                arrow.style.transform = 'rotate(0deg)';
-            }
-        });
-    });
-
-    // Enhanced Audio button with better feedback
-    const audioButton = document.getElementById('audio-button');
-    if (audioButton) {
-        audioButton.addEventListener('click', () => {
-            // Add visual feedback
-            audioButton.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                audioButton.style.transform = 'scale(1)';
-            }, 150);
-
-            const text = 'Vivienda Unifamiliar';
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'es-ES';
-            utterance.rate = 0.8; // Slower for learning
-            speechSynthesis.speak(utterance);
-        });
-    }
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Enhanced scroll animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+    // Use requestIdleCallback for non-critical tasks
+    const requestIdleCallback = window.requestIdleCallback || function (cb) {
+        return setTimeout(cb, 1);
     };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Apply scroll animations to elements
-    const animatedElements = document.querySelectorAll('section > div');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-
-    // Add dynamic header background on scroll
-    const header = document.querySelector('header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
-            header.style.backdropFilter = 'blur(20px)';
-        } else {
-            header.style.background = 'rgba(255, 255, 255, 0.25)';
-            header.style.backdropFilter = 'blur(20px)';
-        }
-    });
-
-    // Practice exercise functionality
-    const practiceInput = document.querySelector('input[placeholder="____________"]');
-    const checkButton = document.querySelector('button[data-check-answer]') ||
-        Array.from(document.querySelectorAll('button')).find(btn => btn.textContent.includes('Check Answer'));
-
-    if (practiceInput && checkButton) {
-        checkButton.addEventListener('click', () => {
-            const answer = practiceInput.value.toLowerCase().trim();
-            if (answer === 'single-family' || answer === 'single family' || answer === 'vivienda unifamiliar') {
-                practiceInput.style.borderColor = '#10B981';
-                practiceInput.style.backgroundColor = '#D1FAE5';
-                checkButton.textContent = '¡Correcto! ✅';
-                checkButton.style.background = 'linear-gradient(to right, #10B981, #059669)';
-            } else {
-                practiceInput.style.borderColor = '#EF4444';
-                practiceInput.style.backgroundColor = '#FEE2E2';
-                checkButton.textContent = 'Inténtalo de nuevo 🔄';
-                checkButton.style.background = 'linear-gradient(to right, #EF4444, #DC2626)';
-            }
-        });
-
-        practiceInput.addEventListener('input', () => {
-            // Reset styles on new input
-            practiceInput.style.borderColor = '#60A5FA';
-            practiceInput.style.backgroundColor = '#FFFFFF';
-            checkButton.textContent = 'Comprobar respuesta ✓';
-            checkButton.style.background = 'linear-gradient(to right, #10B981, #3B82F6)';
-        });
+    // Debounce function to reduce excessive calls
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func.apply(this, args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
     }
 
-    // Testimonials slider functionality
-    const testimonialContainer = document.getElementById('testimonialContainer');
+    // Throttle function for scroll events
+    function throttle(func, delay) {
+        let timeoutId;
+        let lastExecTime = 0;
+        return function (...args) {
+            const currentTime = Date.now();
 
-    if (testimonialContainer) {
-        let autoScrollAnimationFrame;
-        let isUserInteracting = false;
-        let scrollPosition = 0;
-        const scrollSpeed = 0.35; // Reduced from 0.5 to make it half as fast
+            if (currentTime - lastExecTime > delay) {
+                func.apply(this, args);
+                lastExecTime = currentTime;
+            } else {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    func.apply(this, args);
+                    lastExecTime = Date.now();
+                }, delay - (currentTime - lastExecTime));
+            }
+        };
+    }
 
-        // Clone testimonials for seamless infinite scroll
-        function setupInfiniteScroll() {
-            const testimonialSlider = document.getElementById('testimonialSlider');
-            if (!testimonialSlider) return;
+    // Wait for DOM to be ready
+    function domReady(callback) {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', callback);
+        } else {
+            callback();
+        }
+    }
 
-            const testimonials = testimonialSlider.children;
-            const testimonialArray = Array.from(testimonials);
+    // Critical functionality - load immediately
+    domReady(function () {
+        // Enhanced FAQ Accordion with performance optimizations
+        function initFAQ() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            if (faqItems.length === 0) return;
 
-            // Clone all testimonials and append them to the flex container for seamless loop
-            testimonialArray.forEach(testimonial => {
-                const clone = testimonial.cloneNode(true);
-                testimonialSlider.appendChild(clone);
+            // Use event delegation for better performance
+            document.addEventListener('click', function (e) {
+                const question = e.target.closest('.faq-question');
+                if (!question) return;
+
+                const item = question.closest('.faq-item');
+                const answer = item.querySelector('.faq-answer');
+                const arrow = item.querySelector('.arrow-down');
+
+                if (!answer || !arrow) return;
+
+                // Use requestAnimationFrame to ensure smooth animations
+                requestAnimationFrame(() => {
+                    const isActive = item.classList.contains('active');
+
+                    // Close all other items efficiently
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                            const otherAnswer = otherItem.querySelector('.faq-answer');
+                            const otherArrow = otherItem.querySelector('.arrow-down');
+                            if (otherAnswer) otherAnswer.style.maxHeight = null;
+                            if (otherArrow) otherArrow.style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    // Toggle current item
+                    item.classList.toggle('active');
+
+                    if (item.classList.contains('active')) {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        arrow.style.transform = 'rotate(180deg)';
+                    } else {
+                        answer.style.maxHeight = null;
+                        arrow.style.transform = 'rotate(0deg)';
+                    }
+                });
             });
         }
 
-        // Smooth infinite auto-scroll functionality
-        function startAutoScroll() {
-            if (autoScrollAnimationFrame) {
-                cancelAnimationFrame(autoScrollAnimationFrame);
+        // Enhanced Audio button with performance improvements
+        function initAudioButton() {
+            const audioButton = document.getElementById('audio-button');
+            if (!audioButton) return;
+
+            audioButton.addEventListener('click', function () {
+                // Add visual feedback with RAF
+                requestAnimationFrame(() => {
+                    this.style.transform = 'scale(0.95)';
+                    requestAnimationFrame(() => {
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                        }, 150);
+                    });
+                });
+
+                // Use Web Speech API efficiently
+                if ('speechSynthesis' in window) {
+                    const text = 'Vivienda Unifamiliar';
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'es-ES';
+                    utterance.rate = 0.8;
+                    speechSynthesis.speak(utterance);
+                }
+            });
+        }
+
+        // Smooth scrolling with performance optimization
+        function initSmoothScrolling() {
+            document.addEventListener('click', function (e) {
+                const anchor = e.target.closest('a[href^="#"]');
+                if (!anchor) return;
+
+                e.preventDefault();
+                const targetId = anchor.getAttribute('href');
+                const target = document.querySelector(targetId);
+
+                if (target) {
+                    // Use native smooth scrolling when available, fallback to JS
+                    if ('scrollBehavior' in document.documentElement.style) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    } else {
+                        // Fallback smooth scroll
+                        const targetPosition = target.offsetTop;
+                        const startPosition = window.pageYOffset;
+                        const distance = targetPosition - startPosition;
+                        const duration = 800;
+                        let start = null;
+
+                        function animation(currentTime) {
+                            if (start === null) start = currentTime;
+                            const timeElapsed = currentTime - start;
+                            const run = ease(timeElapsed, startPosition, distance, duration);
+                            window.scrollTo(0, run);
+                            if (timeElapsed < duration) requestAnimationFrame(animation);
+                        }
+
+                        function ease(t, b, c, d) {
+                            t /= d / 2;
+                            if (t < 1) return c / 2 * t * t + b;
+                            t--;
+                            return -c / 2 * (t * (t - 2) - 1) + b;
+                        }
+
+                        requestAnimationFrame(animation);
+                    }
+                }
+            });
+        }
+
+        // Initialize critical features
+        initFAQ();
+        initAudioButton();
+        initSmoothScrolling();
+    });
+
+    // Non-critical functionality - load when idle
+    requestIdleCallback(function () {
+        // Enhanced scroll animations with Intersection Observer
+        function initScrollAnimations() {
+            if (!('IntersectionObserver' in window)) return;
+
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        requestAnimationFrame(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Apply scroll animations to elements
+            const animatedElements = document.querySelectorAll('section > div');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Dynamic header background on scroll with throttling
+        function initHeaderScroll() {
+            const header = document.querySelector('header');
+            if (!header) return;
+
+            const throttledScroll = throttle(() => {
+                requestAnimationFrame(() => {
+                    if (window.scrollY > 100) {
+                        header.style.background = 'rgba(255, 255, 255, 0.95)';
+                        header.style.backdropFilter = 'blur(20px)';
+                    } else {
+                        header.style.background = 'rgba(255, 255, 255, 0.25)';
+                        header.style.backdropFilter = 'blur(20px)';
+                    }
+                });
+            }, 16); // ~60fps
+
+            window.addEventListener('scroll', throttledScroll, { passive: true });
+        }
+
+        // Practice exercise functionality
+        function initPracticeExercise() {
+            const practiceInput = document.querySelector('input[placeholder="____________"]');
+            const checkButton = document.querySelector('button[data-check-answer]') ||
+                Array.from(document.querySelectorAll('button')).find(btn =>
+                    btn.textContent && btn.textContent.includes('Check Answer')
+                );
+
+            if (!practiceInput || !checkButton) return;
+
+            // Debounced input handler
+            const debouncedInputHandler = debounce(() => {
+                requestAnimationFrame(() => {
+                    practiceInput.style.borderColor = '#60A5FA';
+                    practiceInput.style.backgroundColor = '#FFFFFF';
+                    checkButton.textContent = 'Comprobar respuesta ✓';
+                    checkButton.style.background = 'linear-gradient(to right, #10B981, #3B82F6)';
+                });
+            }, 300);
+
+            checkButton.addEventListener('click', () => {
+                const answer = practiceInput.value.toLowerCase().trim();
+                const correctAnswers = ['single-family', 'single family', 'vivienda unifamiliar'];
+
+                requestAnimationFrame(() => {
+                    if (correctAnswers.includes(answer)) {
+                        practiceInput.style.borderColor = '#10B981';
+                        practiceInput.style.backgroundColor = '#D1FAE5';
+                        checkButton.textContent = '¡Correcto! ✅';
+                        checkButton.style.background = 'linear-gradient(to right, #10B981, #059669)';
+                    } else {
+                        practiceInput.style.borderColor = '#EF4444';
+                        practiceInput.style.backgroundColor = '#FEE2E2';
+                        checkButton.textContent = 'Inténtalo de nuevo 🔄';
+                        checkButton.style.background = 'linear-gradient(to right, #EF4444, #DC2626)';
+                    }
+                });
+            });
+
+            practiceInput.addEventListener('input', debouncedInputHandler);
+        }
+
+        // Initialize non-critical features
+        initScrollAnimations();
+        initHeaderScroll();
+        initPracticeExercise();
+    });
+
+    // Testimonials slider with performance optimizations - load last
+    requestIdleCallback(function () {
+        function initTestimonialsSlider() {
+            const testimonialContainer = document.getElementById('testimonialContainer');
+            if (!testimonialContainer) return;
+
+            let animationFrame;
+            let isUserInteracting = false;
+            let scrollPosition = 0;
+            const scrollSpeed = 0.35;
+
+            // Optimize infinite scroll setup
+            function setupInfiniteScroll() {
+                const testimonialSlider = document.getElementById('testimonialSlider');
+                if (!testimonialSlider) return;
+
+                const testimonials = Array.from(testimonialSlider.children);
+                const fragment = document.createDocumentFragment();
+
+                // Use DocumentFragment for better performance
+                testimonials.forEach(testimonial => {
+                    const clone = testimonial.cloneNode(true);
+                    fragment.appendChild(clone);
+                });
+                testimonialSlider.appendChild(fragment);
             }
 
-            function smoothScroll(currentTime) {
-                if (!isUserInteracting) {
-                    scrollPosition += scrollSpeed;
-
-                    const maxScroll = testimonialContainer.scrollWidth / 2; // Half because we duplicated content
-
-                    // Reset position when we've scrolled through original content
-                    if (scrollPosition >= maxScroll) {
-                        scrollPosition = 0;
-                    }
-
-                    testimonialContainer.scrollLeft = scrollPosition;
+            // Optimized smooth scroll with RAF
+            function startAutoScroll() {
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
                 }
 
-                autoScrollAnimationFrame = requestAnimationFrame(smoothScroll);
+                function smoothScroll() {
+                    if (!isUserInteracting) {
+                        scrollPosition += scrollSpeed;
+                        const maxScroll = testimonialContainer.scrollWidth / 2;
+
+                        if (scrollPosition >= maxScroll) {
+                            scrollPosition = 0;
+                        }
+
+                        testimonialContainer.scrollLeft = scrollPosition;
+                    }
+                    animationFrame = requestAnimationFrame(smoothScroll);
+                }
+
+                animationFrame = requestAnimationFrame(smoothScroll);
             }
 
-            autoScrollAnimationFrame = requestAnimationFrame(smoothScroll);
-        }
-
-        function stopAutoScroll() {
-            if (autoScrollAnimationFrame) {
-                cancelAnimationFrame(autoScrollAnimationFrame);
-                autoScrollAnimationFrame = null;
+            function stopAutoScroll() {
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                    animationFrame = null;
+                }
             }
-        }
 
-        // Mouse interactions
-        let isDragging = false;
-        let startX = 0;
-        let scrollLeft = 0;
+            // Optimized mouse interactions
+            let isDragging = false;
+            let startX = 0;
+            let scrollLeft = 0;
 
-        testimonialContainer.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            isUserInteracting = true;
-            stopAutoScroll();
+            testimonialContainer.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                isUserInteracting = true;
+                stopAutoScroll();
 
-            testimonialContainer.style.cursor = 'grabbing';
-            testimonialContainer.style.userSelect = 'none';
+                testimonialContainer.style.cursor = 'grabbing';
+                testimonialContainer.style.userSelect = 'none';
 
-            startX = e.pageX - testimonialContainer.offsetLeft;
-            scrollLeft = testimonialContainer.scrollLeft;
-            scrollPosition = scrollLeft; // Sync scroll position
-            e.preventDefault();
-        });
+                startX = e.pageX - testimonialContainer.offsetLeft;
+                scrollLeft = testimonialContainer.scrollLeft;
+                scrollPosition = scrollLeft;
+                e.preventDefault();
+            });
 
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
+            // Use throttled mousemove for better performance
+            const throttledMouseMove = throttle((e) => {
+                if (!isDragging) return;
+                e.preventDefault();
 
-            const x = e.pageX - testimonialContainer.offsetLeft;
-            const walk = (x - startX) * 2;
-            const newScrollLeft = scrollLeft - walk;
-            testimonialContainer.scrollLeft = newScrollLeft;
-            scrollPosition = newScrollLeft; // Keep position in sync
-        });
+                const x = e.pageX - testimonialContainer.offsetLeft;
+                const walk = (x - startX) * 2;
+                const newScrollLeft = scrollLeft - walk;
+                testimonialContainer.scrollLeft = newScrollLeft;
+                scrollPosition = newScrollLeft;
+            }, 16);
 
-        document.addEventListener('mouseup', () => {
-            if (isDragging) {
-                isDragging = false;
-                testimonialContainer.style.cursor = 'grab';
-                testimonialContainer.style.userSelect = 'auto';
+            document.addEventListener('mousemove', throttledMouseMove);
 
+            document.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    testimonialContainer.style.cursor = 'grab';
+                    testimonialContainer.style.userSelect = 'auto';
+
+                    setTimeout(() => {
+                        isUserInteracting = false;
+                        startAutoScroll();
+                    }, 3000);
+                }
+            });
+
+            // Touch interactions with passive listeners
+            testimonialContainer.addEventListener('touchstart', () => {
+                isUserInteracting = true;
+                stopAutoScroll();
+                scrollPosition = testimonialContainer.scrollLeft;
+            }, { passive: true });
+
+            testimonialContainer.addEventListener('touchend', () => {
                 setTimeout(() => {
                     isUserInteracting = false;
+                    scrollPosition = testimonialContainer.scrollLeft;
                     startAutoScroll();
                 }, 3000);
-            }
-        });
+            }, { passive: true });
 
-        // Touch interactions
-        testimonialContainer.addEventListener('touchstart', () => {
-            isUserInteracting = true;
-            stopAutoScroll();
-            scrollPosition = testimonialContainer.scrollLeft; // Sync position
-        }, { passive: true });
+            // Initialize slider
+            testimonialContainer.style.cursor = 'grab';
+            setupInfiniteScroll();
 
-        testimonialContainer.addEventListener('touchend', () => {
+            // Start auto-scroll after a delay
             setTimeout(() => {
-                isUserInteracting = false;
-                scrollPosition = testimonialContainer.scrollLeft; // Sync position
                 startAutoScroll();
-            }, 3000);
-        }, { passive: true });
+            }, 2000);
+        }
 
-        // Initialize
-        testimonialContainer.style.cursor = 'grab';
+        initTestimonialsSlider();
+    });
 
-        // Setup infinite scroll and start after a delay
-        setupInfiniteScroll();
-        setTimeout(() => {
-            startAutoScroll();
-        }, 2000);
-    }
-}); 
+})(); 
