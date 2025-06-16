@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WTQWJL6D');</script>
+    <!-- End Google Tag Manager -->
+    <title>Curso de Inglés para Negocios</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap">
+    </noscript>
+
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+    <!-- Load external CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="tailwind-essentials.css">
+
+    <!-- Critical CSS inlined -->
+    <style>
+        :root {
+            --primary-navy: #0B1426;
+            --primary-gold: #D4AF37;
+            --light-gold: #F7E98B;
+            --dark-gold: #B8941F;
+            --neutral-light: #F8FAFC;
+            --neutral-medium: #64748B;
+            --neutral-dark: #1E293B;
+            --accent-blue: #1E40AF;
+            --success-green: #059669;
+            --gradient-primary: linear-gradient(135deg, #0B1426 0%, #1E293B 100%);
+            --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+            --gradient-overlay: linear-gradient(135deg, rgba(11, 20, 38, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--neutral-light);
+            color: var(--neutral-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-section {
+            background: var(--gradient-primary);
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(212, 175, 55, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(11, 20, 38, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .hero-nav.scrolled {
+            background: rgba(11, 20, 38, 0.98);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-gold);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-cta {
+            background: var(--gradient-gold);
+            color: var(--primary-navy);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1.2fr 0.8fr;
+                gap: 6rem;
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--primary-gold);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 4.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 5rem;
+            }
+        }
+
+        .gold-accent {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+
+        @media (min-width: 768px) {
+            .hero-subtitle {
+                font-size: 1.375rem;
+            }
+        }
+
+        .hero-cta-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 640px) {
+            .hero-cta-container {
+                flex-direction: row;
+                align-items: center;
+                gap: 1.5rem;
+            }
+        }
+
+        .cta-primary {
+            background: var(--gradient-gold);
+            color: var(--primary-navy);
+            padding: 1.25rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+        }
+
+        .cta-secondary {
+            color: white;
+            padding: 1.25rem 2.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-secondary:hover {
+            border-color: var(--primary-gold);
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-gold);
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .hero-image-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-image-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-overlay);
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            min-height: 400px;
+        }
+
+        .trust-indicators {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .trust-icon {
+            color: var(--success-green);
+            font-size: 1rem;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-light {
+            background: var(--neutral-light);
+        }
+
+        .section-dark {
+            background: var(--primary-navy);
+            color: white;
+        }
+
+        .section-gradient {
+            background: linear-gradient(135deg, var(--neutral-light) 0%, rgba(212, 175, 55, 0.05) 100%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--neutral-dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-dark .section-title {
+            color: white;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--neutral-medium);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        .section-dark .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loading {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .loaded {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2.25rem;
+            }
+
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .hero-content {
+                padding: 6rem 1rem 4rem;
+            }
+        }
+    </style>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s) }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1007451778117607');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1007451778117607&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+</head>
+
+<body class="loading">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTQWJL6D" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Fixed Navigation -->
+    <nav class="hero-nav" id="main-nav">
+        <div class="nav-container">
+            <a href="#hero" class="logo">
+                <div class="logo-icon">🏢</div>
+                <span>Academia Inmobiliaria Global</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#hero">Inicio</a></li>
+                <li><a href="#benefits">Beneficios</a></li>
+                <li><a href="#testimonials">Testimonios</a></li>
+                <li><a href="#pricing">Precios</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            <a href="#pricing" class="nav-cta">Comenzar Ahora</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <div id="hero-container"></div>
+
+        <!-- Dynamic Content Sections -->
+        <div id="non-critical-content" style="display: none;">
+            <div id="problem-solution-container"></div>
+            <div id="how-it-works-container"></div>
+            <div id="whats-inside-container"></div>
+            <div id="tangible-benefits-container"></div>
+            <div id="social-proof-container"></div>
+            <div id="pricing-container"></div>
+            <div id="faq-container"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Performance & Functionality Scripts -->
+    <script>
+        // Enhanced loading and animation system
+        (function () {
+            // Show critical content immediately
+            document.body.classList.add('loaded');
+
+            // Navigation scroll effect
+            const nav = document.getElementById('main-nav');
+            let lastScrollY = window.scrollY;
+
+            function handleNavScroll() {
+                if (window.scrollY > 100) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+                lastScrollY = window.scrollY;
+            }
+
+            window.addEventListener('scroll', handleNavScroll, { passive: true });
+
+            // Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            function observeElements() {
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    observer.observe(el);
+                });
+            }
+
+            // Load section function with error handling
+            async function loadSection(containerId, filePath) {
+                try {
+                    console.log(`Loading section: ${filePath}`);
+                    const response = await fetch(filePath);
+                    if (!response.ok) {
+                        console.error(`Error fetching ${filePath}: ${response.status}`);
+                        return;
+                    }
+                    const html = await response.text();
+                    const container = document.getElementById(containerId);
+                    if (container) {
+                        container.innerHTML = html;
+                        console.log(`Successfully loaded: ${filePath}`);
+
+                        // Re-observe new elements for animations
+                        setTimeout(observeElements, 100);
+                    } else {
+                        console.error(`Container not found: ${containerId}`);
+                    }
+                } catch (error) {
+                    console.error(`Error loading section from ${filePath}:`, error);
+                }
+            }
+
+            // Load all sections with improved performance
+            async function loadAllSections() {
+                // Load hero first
+                await loadSection('hero-container', 'sections/hero.html');
+
+                // Show non-critical content
+                const nonCriticalContent = document.getElementById('non-critical-content');
+                if (nonCriticalContent) {
+                    nonCriticalContent.style.display = 'block';
+                }
+
+                // Load remaining sections in parallel for better performance
+                const sectionPromises = [
+                    loadSection('problem-solution-container', 'sections/problem-solution.html'),
+                    loadSection('how-it-works-container', 'sections/how-it-works.html'),
+                    loadSection('whats-inside-container', 'sections/whats-inside.html'),
+                    loadSection('tangible-benefits-container', 'sections/tangible-benefits.html'),
+                    loadSection('social-proof-container', 'sections/social-proof.html'),
+                    loadSection('pricing-container', 'sections/pricing.html'),
+                    loadSection('faq-container', 'sections/faq.html'),
+                    loadSection('footer-container', 'sections/footer.html')
+                ];
+
+                await Promise.all(sectionPromises);
+
+                // Initialize animations after all content is loaded
+                setTimeout(observeElements, 300);
+            }
+
+            // Smooth scrolling for navigation links
+            function setupSmoothScrolling() {
+                document.addEventListener('click', (e) => {
+                    if (e.target.matches('a[href^="#"]')) {
+                        e.preventDefault();
+                        const target = document.querySelector(e.target.getAttribute('href'));
+                        if (target) {
+                            const navHeight = nav.offsetHeight;
+                            const targetPosition = target.offsetTop - navHeight - 20;
+
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            }
+
+            // Initialize everything
+            setupSmoothScrolling();
+            loadAllSections();
+
+            // Load main script with delay for better performance
+            setTimeout(() => {
+                const mainScript = document.createElement('script');
+                mainScript.src = 'script.js';
+                mainScript.async = true;
+                document.head.appendChild(mainScript);
+            }, 500);
+
+            // Enhanced responsive handling
+            function handleResize() {
+                // Add any responsive logic needed
+            }
+
+            window.addEventListener('resize', handleResize, { passive: true });
+
+        })();
+    </script>
+</body>
+
+</html>

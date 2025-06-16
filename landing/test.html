@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Refactored Landing Page</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .test-section {
+            border: 2px solid #ccc;
+            margin: 20px 0;
+            padding: 20px;
+        }
+
+        .test-info {
+            background: #f0f0f0;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-info">
+        <h1>Landing Page Refactoring Test</h1>
+        <p><strong>Status:</strong> <span id="status">Testing...</span></p>
+        <p><strong>Sections Loaded:</strong> <span id="loaded-count">0</span>/9</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Hero Section</h2>
+        <div id="hero-container">Loading...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Problem-Solution Section</h2>
+        <div id="problem-solution-container">Loading...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Footer Section</h2>
+        <div id="footer-container">Loading...</div>
+    </div>
+
+    <script>
+        let loadedCount = 0;
+        const totalSections = 9;
+
+        async function loadSection(containerId, filePath) {
+            try {
+                console.log(`Loading section: ${filePath}`);
+                const response = await fetch(filePath);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const html = await response.text();
+                const container = document.getElementById(containerId);
+                if (container) {
+                    container.innerHTML = html;
+                    loadedCount++;
+                    document.getElementById('loaded-count').textContent = loadedCount;
+                    console.log(`✅ Successfully loaded: ${filePath}`);
+                } else {
+                    console.error(`❌ Container not found: ${containerId}`);
+                }
+            } catch (error) {
+                console.error(`❌ Error loading section from ${filePath}:`, error);
+                const container = document.getElementById(containerId);
+                if (container) {
+                    container.innerHTML = `<p style="color: red;">Error loading ${filePath}: ${error.message}</p>`;
+                }
+            }
+        }
+
+        async function testSections() {
+            document.getElementById('status').textContent = 'Loading sections...';
+
+            // Test loading a few key sections
+            await loadSection('hero-container', 'sections/hero.html');
+            await loadSection('problem-solution-container', 'sections/problem-solution.html');
+            await loadSection('footer-container', 'sections/footer.html');
+
+            document.getElementById('status').textContent = 'Test completed! Check console for details.';
+        }
+
+        // Start the test
+        testSections();
+    </script>
+</body>
+
+</html>
