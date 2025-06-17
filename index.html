@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curso de Inglés para Negocios - Expande tu Mercado Global</title>
 
+    <!-- Short cache for development -->
+    <meta http-equiv="Cache-Control" content="max-age=300">
+
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,6 +44,15 @@
             fill: currentColor;
         }
     </style>
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s) }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1007451778117607');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1007451778117607&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
 </head>
 
 <body>
@@ -62,7 +74,8 @@
 
                 <div class="content-right">
                     <div class="cta-section">
-                        <a href="#" class="cta-button">
+                        <a href="https://whop.com/checkout/plan_Lox931cakhdfn?d2c=true" class="cta-button"
+                            onclick="fbq('track', 'InitiateCheckout');">
                             <span class="cta-text">Empieza a cerrar tratos globales – $29</span>
                         </a>
                     </div>
