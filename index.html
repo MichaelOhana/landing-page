@@ -113,6 +113,13 @@
             </div>
         </div>
     </div>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations()
+                .then(regs => regs.forEach(reg => reg.unregister()))
+                .catch(() => { });
+        }
+    </script>
 </body>
 
 </html>
