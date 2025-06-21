@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1007451778117607');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1007451778117607&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Purchase Conversion Tracking -->
+    <script>
+        const p = new URLSearchParams(location.search);
+        if (p.get('tx') === 'whop') {
+            fbq('track', 'Purchase', { value: 29, currency: 'USD' });
+        }
+    </script>
+
+    <title>¡Gracias por tu compra! | Dominio del Inglés Inmobiliario</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+    </noscript>
+
+    <!-- Critical CSS -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #1e40af 100%);
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thank-you-container {
+            max-width: 600px;
+            margin: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 2rem;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2.5rem;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .thank-you-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .thank-you-subtitle {
+            font-size: 1.25rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+
+
+        .course-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            color: white;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+        }
+
+        .course-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px -5px rgba(37, 99, 235, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .thank-you-container {
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            .thank-you-title {
+                font-size: 2rem;
+            }
+
+            .thank-you-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="thank-you-container">
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h1 class="thank-you-title">¡Excelente!</h1>
+        <p class="thank-you-subtitle">
+            ¡Tu pago se realizó con éxito!
+        </p>
+
+        <a href="../course" class="course-button">
+            Comenzar a aprender ahora
+        </a>
+    </div>
+
+    <script>
+        // Optional: Add some interactive feedback
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if this is a conversion from ads
+            const urlParams = new URLSearchParams(window.location.search);
+            const isConversion = urlParams.get('tx') === 'whop';
+
+            if (isConversion) {
+                console.log('Purchase conversion tracked successfully');
+
+                // Optional: Show additional messaging for ad conversions
+                const container = document.querySelector('.thank-you-container');
+                const conversionBadge = document.createElement('div');
+                conversionBadge.style.cssText = `
+                    position: absolute;
+                    top: -10px;
+                    right: -10px;
+                    background: linear-gradient(135deg, #10b981, #059669);
+                    color: white;
+                    padding: 0.5rem 1rem;
+                    border-radius: 1rem;
+                    font-size: 0.875rem;
+                    font-weight: 600;
+                    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
+                `;
+                conversionBadge.textContent = '🎉 ¡Oferta Especial!';
+                container.style.position = 'relative';
+                container.appendChild(conversionBadge);
+            }
+        });
+    </script>
+</body>
+
+</html>
