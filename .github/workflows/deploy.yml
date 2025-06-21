@@ -23,6 +23,12 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Copy course directory
+        run: cp -r src/course dist/
+
+      - name: Copy thank-you directory
+        run: cp -r src/thank-you dist/
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
