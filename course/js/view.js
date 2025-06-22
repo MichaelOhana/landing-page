@@ -11,11 +11,9 @@ export async function loadHtmlViews() {
         const [
             wordRes,
             practiceRes,
-            paymentPopupRes
         ] = await Promise.all([
             fetch(VIEWS.WORD_DETAIL),
             fetch(VIEWS.PRACTICE),
-            fetch(VIEWS.PAYMENT_POPUP)
         ]);
 
         if (!wordRes.ok) throw new Error(`Failed to fetch ${VIEWS.WORD_DETAIL}: ${wordRes.statusText}`);
@@ -24,16 +22,12 @@ export async function loadHtmlViews() {
         if (!practiceRes.ok) throw new Error(`Failed to fetch ${VIEWS.PRACTICE}: ${practiceRes.statusText}`);
         this.practiceViewHtml = await practiceRes.text();
 
-        if (!paymentPopupRes.ok) throw new Error(`Failed to fetch ${VIEWS.PAYMENT_POPUP}: ${paymentPopupRes.statusText}`);
-        this.paymentPopupHtml = await paymentPopupRes.text();
-
         console.log("[view.js] HTML views loaded successfully.");
     } catch (err) {
         console.error("[view.js] Error loading HTML views:", err);
         this.error = (this.error ? this.error + '; ' : '') + `Failed to load page templates: ${err.message}`;
         if (!this.wordDetailViewHtml) this.wordDetailViewHtml = `<p class="text-red-500 text-center">Error loading word detail view. Please refresh.</p>`;
         if (!this.practiceViewHtml) this.practiceViewHtml = `<p class="text-red-500 text-center">Error loading practice view. Please refresh.</p>`;
-        if (!this.paymentPopupHtml) this.paymentPopupHtml = `<p class="text-red-500 text-center">Error loading payment popup. Please refresh.</p>`;
     } finally {
         this.isLoadingHtmlViews = false;
     }
