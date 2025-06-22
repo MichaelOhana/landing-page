@@ -1,10 +1,10 @@
 <div class="pt-16 md:pt-0">
-
     <div x-show="isLoadingWordDetails" class="text-center p-6">
         <p class="text-lg text-gray-500">Cargando detalles de la palabra...</p>
     </div>
 
-    <div x-show="currentWord && !isLoadingWordDetails" class="bg-white p-6 rounded-lg shadow-md space-y-6">
+    <div x-show="currentWord && !isLoadingWordDetails"
+        class="bg-white p-2 md:p-6 rounded-none md:rounded-lg shadow-none md:shadow-md space-y-4 md:space-y-6">
         <!-- Word Term and Basic Info -->
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-4xl font-bold text-purple-800" x-text="currentWord?.term"></h2>
@@ -50,7 +50,7 @@
                 Ejemplo
             </h3>
             <div class="space-y-3">
-                <template x-for="(sentence, index) in currentWord.exampleSentences" :key="index">
+                <template x-for="(sentence, index) in (currentWord?.exampleSentences || [])" :key="index">
                     <div class="p-4 bg-purple-50 rounded-lg border border-purple-200 shadow-sm">
                         <div class="flex items-start justify-between">
                             <div class="flex-grow">
@@ -82,7 +82,7 @@
             <h3 class="text-2xl font-semibold text-purple-700 mb-4 border-b-2 border-purple-200 pb-2">Conversaciones
             </h3>
             <div class="space-y-6">
-                <template x-for="(convoBlock, convoIndex) in currentWord.conversation" :key="convoIndex">
+                <template x-for="(convoBlock, convoIndex) in (currentWord?.conversation || [])" :key="convoIndex">
                     <div
                         class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 shadow-lg border border-gray-200 max-w-4xl mx-auto">
                         <!-- Conversation header -->
@@ -97,7 +97,7 @@
 
                         <!-- Chat container with WhatsApp-like styling -->
                         <div class="space-y-4 bg-white rounded-lg p-4 shadow-inner">
-                            <template x-for="(line, lineIndex) in convoBlock.lines" :key="lineIndex">
+                            <template x-for="(line, lineIndex) in (convoBlock?.lines || [])" :key="lineIndex">
                                 <div class="flex" :class="{
                                 'justify-end': line.speaker === 'B' || line.speaker === 'person2' || line.speaker.toLowerCase().includes('2'),
                                 'justify-start': line.speaker === 'A' || line.speaker === 'person1' || line.speaker.toLowerCase().includes('1') || (!line.speaker.toLowerCase().includes('2'))
@@ -144,7 +144,8 @@
 
                         <!-- Conversation footer with message count -->
                         <div class="mt-4 pt-3 border-t border-gray-300 text-center">
-                            <span class="text-xs text-gray-500" x-text="convoBlock.lines.length + ' mensajes'"></span>
+                            <span class="text-xs text-gray-500"
+                                x-text="(convoBlock?.lines?.length || 0) + ' mensajes'"></span>
                         </div>
                     </div>
                 </template>
@@ -162,11 +163,24 @@
                 <p class="text-gray-700 whitespace-pre-line" x-text="currentWord?.notes"></p>
             </div>
         </div>
-    </div>
 
-    <!-- YouTube Clips Section - Plain JS Container (outside Alpine conditional) -->
-    <div id="youtube-clips-container" class="space-y-4">
-        <!-- Clips will be rendered here by plain JavaScript -->
+        <!-- YouGlish Pronunciation Examples Section -->
+        <div x-show="currentWord?.term" class="mt-6 pt-6 border-t border-gray-200">
+            <h3 class="text-2xl font-semibold text-purple-700 mb-4 border-b-2 border-purple-200 pb-2">
+                Ejemplos de Pronunciación
+            </h3>
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
+                <p class="text-gray-600 mb-4 text-sm">
+                    Escucha cómo se pronuncia esta palabra en videos reales de YouTube:
+                </p>
+                <div id="youglish-container"></div>
+            </div>
+        </div>
+
+        <!-- YouTube Clips Section - Moved inside Alpine conditional -->
+        <div id="youtube-clips-container" class="space-y-4 mt-6">
+            <!-- Clips will be rendered here by plain JavaScript -->
+        </div>
     </div>
 
     <!-- Error and Empty States -->

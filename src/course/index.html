@@ -10,8 +10,10 @@
     <!-- Load our main script first -->
     <!-- Then load Alpine.js with defer to ensure proper initialization -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- YouGlish Widget Script -->
+    <script async src="https://youglish.com/public/emb/widget.js" charset="utf-8"></script>
     <!-- Add any other head elements like favicons, etc. -->
-  <script type="module" crossorigin src="/assets/course.R-YgSktM.js"></script>
+  <script type="module" crossorigin src="/assets/course.DPNkkQCL.js"></script>
 </head>
 
 <body x-data="appState" x-cloak class="bg-gray-50 text-gray-800">
@@ -80,10 +82,6 @@
                 <li x-show="!isLoading && allWordsFlat.length === 0" class="text-gray-500">No hay módulos disponibles.
                 </li>
             </ul>
-            <button @click="initiatePractice(allWordsFlat)" x-show="!isLoading && allWordsFlat.length > 0"
-                class="mt-6 w-full px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors shadow-md">
-                Practicar Todas las Palabras
-            </button>
         </nav>
 
         <!-- Right Content Panel -->
