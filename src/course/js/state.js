@@ -28,6 +28,9 @@ export function getInitialState() {
         // Current word for the detail view
         currentWord: null,
 
+        // **OPTIMIZATION: Cache for preloaded word details**
+        wordDetailsCache: new Map(),
+
         isLoadingWordDetails: false,
         selectedWordDetails: {
             term: null,

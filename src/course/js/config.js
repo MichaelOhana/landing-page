@@ -7,5 +7,5 @@ export const SQL_JS_CDN_PATH = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.
 export const VIEWS = {
     MENU: 'views/menu.html',
     WORD_DETAIL: 'views/word-detail.html',
-    PRACTICE: 'views/practice.html'
+    PRACTICE: 'views/practice.html',
 }; 

@@ -166,4 +166,22 @@ export function nextExercise() {
 export function finishPracticeSession() {
     this.isPracticeActive = false;
     this.currentView = 'menu';
+}
+
+// ---- Practice initiation ----
+export function initiatePractice(words) {
+    if (!Array.isArray(words) || words.length === 0) return;
+
+    console.log('[practiceService] initiatePractice()', words.length, 'words');
+
+    // Extract word IDs from the words array
+    const wordIds = words.map(word => word.id).filter(id => id);
+
+    if (wordIds.length === 0) {
+        console.warn('[practiceService] No valid word IDs found for practice');
+        return;
+    }
+
+    // Start practice session with all words
+    this.startPracticeSession(wordIds, `Practice: All ${wordIds.length} Words`);
 } 
