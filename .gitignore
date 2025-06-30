@@ -1,6 +1,6 @@
 # Dependencies
 /node_modules
-
+/AI_conversation_feature_termio/node_modules
 # Build output
 /dist
 
@@ -10,4 +10,12 @@ yarn-debug.log*
 yarn-error.log*
 
 # Misc
-.DS_Store 
+.DS_Store
+/AI_conversation_feature_termio/venv
+AI_conversation_feature_termio/my-app/node_modules
+AI_conversation_feature_termio/my-app/.next
+my-app.css
+chat-widget.es.js
+/venv/
+.DS_Store
+*.sqlite3-journal 
